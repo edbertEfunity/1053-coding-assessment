@@ -19,11 +19,11 @@ export function mapCurrentWeather(obj: currentWeather): weatherInfo {
 export function mapForecastList(list: forecastList): forecastInfo {
   return list.map((item) => {
     const dt = new Date(item.dt * 1000)
-    const time24 = dt.toLocaleTimeString('en-GB', { hour12: false })
+    const time24h = dt.toLocaleTimeString('en-GB', { hour12: false })
 
     return {
-      dayKey: dt.toISOString().slice(0, 10), // convert to "2026-01-17" for example
-      time: time24,
+      day: item.dt_txt.slice(0, 10), // "2026-01-17"
+      time: time24h,
       min: item.main.temp_min,
       max: item.main.temp_max,
       description: item.weather[0]?.description ?? 'No weather information',
