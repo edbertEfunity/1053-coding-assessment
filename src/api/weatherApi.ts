@@ -1,4 +1,4 @@
-const BASEURL = 'api.openweathermap.org/data/2.5'
+const BASEURL = 'https://api.openweathermap.org/data/2.5'
 
 function getKey(): string {
   const key = import.meta.env.VITE_OPEN_WEATHER_API_KEY
