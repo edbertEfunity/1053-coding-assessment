@@ -11,10 +11,11 @@ export type forecastList = Array<{
     description: string
     icon: string
   }>
+  dt_txt: string
 }>
 
 export type forecastInfo = Array<{
-  dayKey: string
+  day: string
   time: string
   min: number
   max: number
@@ -30,4 +31,10 @@ export type forecastDetails = {
     country: string
     population: number
   }
+}
+
+export type forecastDay = {
+  day: string
+  title: string | undefined
+  rows: forecastInfo
 }
