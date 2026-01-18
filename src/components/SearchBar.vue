@@ -1,0 +1,41 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const city = ref('')
+const emit = defineEmits<{
+  (e: 'search', city: string): void
+}>()
+
+function submit(): void {
+  // if city name is empty, return nothing
+  if (!city.value.trim()) {
+    return
+  }
+
+  // send the payload city to the parent component
+  emit('search', city.value.trim())
+}
+</script>
+
+<template>
+  <div class="search">
+    <input v-model="city" placeholder="Input city name (e.g. Singapore, Malaysia, Thailand)" />
+    <button @click="submit">Search</button>
+  </div>
+</template>
+
+<style scoped>
+.search {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+}
+
+button {
+  padding: 8px 12px;
+}
+</style>

@@ -1,4 +1,4 @@
-const BASEURL = 'api.openweathermap.org/data/2.5'
+const BASEURL = 'https://api.openweathermap.org/data/2.5'
 
 function getKey(): string {
   const key = import.meta.env.VITE_OPEN_WEATHER_API_KEY
@@ -11,7 +11,7 @@ function getKey(): string {
 export async function getCurrentWeather(city: string) {
   const key = getKey()
   // fetch currentWeather information from openWeather API URL
-  const url = `${BASEURL}/weather?q=${encodeURIComponent(city)}&appid=${key}&units=metric`
+  const url = `${BASEURL}/weather?q=${encodeURIComponent(city)}&appid=${key}&units=metric` // units set to metric so that celsius used
 
   const res = await fetch(url)
   if (!res.ok) {
@@ -23,7 +23,7 @@ export async function getCurrentWeather(city: string) {
 export async function getForecast(city: string) {
   const key = getKey()
   // fetch forecast information from openWeather API URL
-  const url = `${BASEURL}/forecast?q=${encodeURIComponent(city)}&appid=${key}&units=metric`
+  const url = `${BASEURL}/forecast?q=${encodeURIComponent(city)}&appid=${key}&units=metric` // units set to metric so celsius used
 
   const res = await fetch(url)
   if (!res.ok) {
