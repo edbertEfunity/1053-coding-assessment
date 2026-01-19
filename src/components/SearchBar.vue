@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const city = ref('')
+const city = ref<string>('')
 const emit = defineEmits<{
   (e: 'search', city: string): void
 }>()

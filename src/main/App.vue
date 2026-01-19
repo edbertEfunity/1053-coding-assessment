@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { getCurrentWeather, getForecast } from '@/api/weatherApi'
-import { mapCurrentWeather, mapForecastList } from '@/utils/mapWeather'
 import type { currentWeather, weatherInfo } from '@/types/currentWeatherType'
 import { type forecastDetails, type forecastInfo, type forecastDay } from '@/types/forecastType'
 import { groupByDay } from '@/utils/groupForecast'
+import { loadHistory, addToHistory, removeHistory } from '@/utils/historyStorage'
+import { mapCurrentWeather, mapForecastList } from '@/utils/mapWeather'
 import SearchBar from '@/components/SearchBar.vue'
 import CurrentCard from '@/components/CurrentCard.vue'
 import HistoryList from '@/components/HistoryList.vue'
-import { loadHistory, addToHistory, removeHistory } from '@/utils/historyStorage'
+import ForecastDays from '@/components/ForecastDays.vue'
 
 const error = ref<string | null>(null)
 const loading = ref<boolean>(false)
@@ -30,8 +31,9 @@ async function onSearch(city: string) {
     const current_in_raw_format: currentWeather = await getCurrentWeather(city)
     const forecast_in_raw_format: forecastDetails = await getForecast(city)
 
-    current.value = mapCurrentWeather(current_in_raw_format)
-    const forecast: forecastInfo = mapForecastList(forecast_in_raw_format.list)
+    // To structure the current weather and forecast nicely
+    current.value = mapCurrentWeather(current_in_raw_format) // Outputs an object of current weather
+    const forecast: forecastInfo = mapForecastList(forecast_in_raw_format.list) // Outputs an array of objects of forecast details
 
     history.value = addToHistory(city)
 
@@ -66,7 +68,7 @@ function onDeleteHistory(city: string): void {
 
     <CurrentCard v-if="current" :data="current" />
 
-    <pre v-if="forecastDays?.length">{{ forecastDays }}</pre>
+    <ForecastDays v-if="forecastDays?.length" :forecast-data="forecastDays" />
   </div>
 </template>
 

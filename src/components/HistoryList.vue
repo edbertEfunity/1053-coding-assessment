@@ -20,11 +20,25 @@ function onDelete(item: string): void {
 <template>
   <div v-if="props.items.length">
     <h3>History</h3>
-    <ul>
-      <li v-for="item in props.items" :key="item">
-        <button @click="onSelect(item)">{{ item }}</button>
-        <button @click="onDelete(item)">Delete</button>
-      </li>
-    </ul>
+    <div class="card">
+      <ul>
+        <li v-for="item in props.items" :key="item">
+          <button @click="onSelect(item)">{{ item }}</button>
+          <button @click="onDelete(item)">Delete</button>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.card {
+  border: 1px solid #7b7878;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+button {
+  padding: 8px 12px;
+}
+</style>

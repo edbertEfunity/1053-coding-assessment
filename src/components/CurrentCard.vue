@@ -14,7 +14,7 @@ const props = defineProps<{
     <div class="row">
       <img :src="props.data.icon" alt="Weather icon" />
       <div>
-        <p class="temp">{{ props.data.temp }}</p>
+        <p class="temp">{{ props.data.temp }}°C</p>
         <p>{{ props.data.description }}</p>
       </div>
 
