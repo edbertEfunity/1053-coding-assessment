@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { getCurrentWeather, getForecast } from '@/api/weatherApi'
 import type { currentWeather, weatherInfo } from '@/types/currentWeatherType'
 import { type forecastDetails, type forecastInfo, type forecastDay } from '@/types/forecastType'
@@ -10,6 +10,7 @@ import SearchBar from '@/components/SearchBar.vue'
 import CurrentCard from '@/components/CurrentCard.vue'
 import HistoryList from '@/components/HistoryList.vue'
 import ForecastDays from '@/components/ForecastDays.vue'
+import ErrorBox from '@/components/ErrorBox.vue'
 
 const error = ref<string | null>(null)
 const loading = ref<boolean>(false)
@@ -18,9 +19,7 @@ const current = ref<weatherInfo | null>(null)
 const forecastDays = ref<forecastDay[] | undefined>([])
 const history = ref<string[]>([])
 
-onMounted(() => {
-  history.value = loadHistory()
-})
+history.value = loadHistory()
 
 async function onSearch(city: string) {
   loading.value = true // Ensures onSearch function finish executing before next line of instruction gets executed
@@ -34,10 +33,10 @@ async function onSearch(city: string) {
     // To structure the current weather and forecast nicely
     current.value = mapCurrentWeather(current_in_raw_format) // Outputs an object of current weather
     const forecast: forecastInfo = mapForecastList(forecast_in_raw_format.list) // Outputs an array of objects of forecast details
-
+    // console.log(forecast)
     history.value = addToHistory(city)
 
-    forecastDays.value = groupByDay(forecast)
+    forecastDays.value = groupByDay(forecast) // To group the weather forecast details by correct day
   } catch (e: any) {
     error.value = e.message ?? 'Something went wrong'
     current.value = null
@@ -57,7 +56,7 @@ function onDeleteHistory(city: string): void {
     <SearchBar @search="onSearch" />
 
     <p v-if="loading">Loading...</p>
-    <p v-if="error">{{ error }}</p>
+    <ErrorBox v-if="error" :error="error" />
 
     <HistoryList
       v-if="history.length"
