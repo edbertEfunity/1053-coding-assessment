@@ -3,10 +3,10 @@ import type { forecastInfo, forecastDay } from '@/types/forecastType'
 
 export function groupByDay(forecast: forecastInfo): forecastDay[] | undefined {
   const days: forecastDay[] = []
-  const today = new Date().toISOString().slice(0, 10)
+  const today = new Date().toISOString().slice(0, 10) // YYYY-MM-DD format
 
   for (const f of forecast) {
-    let day = days.find((d) => d.day === f.day)
+    let day = days.find((d) => d.day === f.day) // method to find the first object which d.day === f.day
 
     if (!day) {
       day = {
