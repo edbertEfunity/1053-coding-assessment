@@ -19,8 +19,15 @@ function submit(): void {
 
 <template>
   <div class="search">
-    <input v-model="city" placeholder="Input city name (e.g. Singapore, Malaysia, Thailand)" />
-    <button @click="submit">Search</button>
+    <input
+      class="input-group mb-3"
+      @keyup.enter="submit"
+      v-model="city"
+      placeholder="Input city name (e.g. Singapore, Malaysia, Thailand)"
+      aria-label="Input city name (e.g. Singapore, Malaysia, Thailand)"
+      aria-describedby="basic-addon1"
+    />
+    <button type="button" class="btn btn-outline-dark mb-3" @click="submit">Search</button>
   </div>
 </template>
 

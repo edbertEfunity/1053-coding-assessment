@@ -19,12 +19,14 @@ function onDelete(item: string): void {
 
 <template>
   <div v-if="props.items.length">
-    <h3>History</h3>
+    <h4>History</h4>
     <div class="card">
       <ul>
         <li v-for="item in props.items" :key="item">
-          <button @click="onSelect(item)">{{ item }}</button>
-          <button @click="onDelete(item)">Delete</button>
+          <button class="btn btn-outline-secondary btn-sm" @click="onSelect(item)">
+            {{ item }}
+          </button>
+          <button class="btn btn-outline-secondary btn-sm" @click="onDelete(item)">Delete</button>
         </li>
       </ul>
     </div>

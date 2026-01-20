@@ -16,8 +16,8 @@ const forecastRows = computed<forecastInfo | undefined>(() => {
 <template>
   <div v-if="title === 'today'">
     <h2 class="title">{{ title }}'s Forecast:</h2>
-    <div class="card" v-for="row in forecastRows" :key="row.day">
-      <img :src="row.icon" alt="Forecast Icon" />
+    <div class="card" v-for="(row, index) in forecastRows" :key="index">
+      <img class="img-fluid" style="max-width: 100px" :src="row.icon" alt="Forecast Icon" />
       <p>Date: {{ row.day }}</p>
       <p>Time: {{ row.time }}</p>
       <p>Minimum Temperature: {{ row.min }}°C</p>
