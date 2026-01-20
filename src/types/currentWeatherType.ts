@@ -28,5 +28,6 @@ export type weatherInfo = {
   windDeg: number
   visibilityInKm: number
   icon: string
-  dateText: string
+  date: string
+  time: string
 }
